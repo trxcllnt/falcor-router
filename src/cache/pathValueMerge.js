@@ -98,6 +98,9 @@ function innerPathValueMerge(cache, pathValue) {
         }
     }
 
+    if (curr.$type) {
+        return;
+    }
 
     // TODO: This clearly needs a re-write.  I am just unsure of how i want
     // this to look.  Plus i want to measure performance.

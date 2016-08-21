@@ -569,7 +569,7 @@ describe('Get', function() {
 
         router.
             get([[['foo', 'bar'], ['name', 'rating']]]).
-            doAction(function(x) {
+            do(function(x) {
                 expect(x).to.deep.equals({
                     jsonGraph: {
                         'foo': {
