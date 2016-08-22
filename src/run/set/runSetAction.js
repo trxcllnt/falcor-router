@@ -79,11 +79,20 @@ function runSetAction(routerInstance, jsongMessage, matchAndPath, jsongCache) {
         var requestedIntersectingPaths = pathIntersections.requestedPaths;
         var optimizedIntersectingPaths = pathIntersections.optimizedPaths;
 
-        // Select a list of the intersecting path values.
-        var intersectingPathValues = jsongMerge({}, {
+        // Select a list of the intersecting path values and references.
+        var intersections = jsongMerge({}, {
             paths: requestedIntersectingPaths,
             jsonGraph: jsongMessage.jsonGraph
-        }).values;
+        });
+
+        var intersectingPathValues = intersections.values.concat(
+            intersections.references.map(function(pv) {
+                return {
+                    path: pv.path,
+                    value: { $type: 'ref', value: pv.value }
+                };
+            })
+        );
 
         // Build the optimized JSON tree for each intersecting path value to
         // pass to the set route handler.
